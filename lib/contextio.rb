@@ -209,16 +209,16 @@ module ContextIO
       account = options.delete(:account)
       if options.has_key?(:email_message_id) then
         email_message_id = URI.escape(options.delete(:email_message_id))
-        get "accounts/#{account}/messages/#{email_message_id}"
+        get "accounts/#{account}/messages/#{email_message_id}", options
       elsif options.has_key?(:message_id) then
         message_id = options.delete(:message_id)
-        get "accounts/#{account}/messages/#{message_id}"
+        get "accounts/#{account}/messages/#{message_id}", options
       elsif options.has_key?(:gmail_message_id) then
         gmail_message_id = options.delete(:gmail_message_id)
-        if options[:gmail_message_id].start_with?('gm-') then
-          get "accounts/#{account}/messages/#{gmail_message_id}"
+        if gmail_message_id.start_with?('gm-') then
+          get "accounts/#{account}/messages/#{gmail_message_id}", options
         else
-          get "accounts/#{account}/messages/gm-#{gmail_message_id}"
+          get "accounts/#{account}/messages/gm-#{gmail_message_id}", options
         end
       end
     end
